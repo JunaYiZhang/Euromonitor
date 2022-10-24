@@ -1,0 +1,87 @@
+{
+	"info": {
+		"_postman_id": "ded7490f-ee07-4e97-948b-db64c7da0093",
+		"name": "auth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23891218"
+	},
+	"item": [
+		{
+			"name": "create token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"properties\": {\r",
+							"        \"token\": {\r",
+							"            \"type\": \"string\"\r",
+							"        }\r",
+							"    },\r",
+							"    \"required\": [\r",
+							"        \"token\"\r",
+							"    ]\r",
+							"};\r",
+							"\r",
+							"pm.test(\"validating Schema\", () => {\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"token\", jsonData.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"username\" : \"admin\",\r\n \"password\" : \"password123\" }"
+				},
+				"url": {
+					"raw": "https://restful-booker.herokuapp.com/auth",
+					"protocol": "https",
+					"host": [
+						"restful-booker",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "sUsername",
+			"value": "admin"
+		},
+		{
+			"key": "sPwd",
+			"value": "password123"
+		},
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}
